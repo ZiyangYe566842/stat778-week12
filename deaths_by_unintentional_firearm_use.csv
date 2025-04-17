@@ -1,0 +1,127 @@
+state,year,intent,number_of_deaths
+Georgia,2005,Unintentional Firearm,16
+Georgia,2006,Unintentional Firearm,12
+Georgia,2007,Unintentional Firearm,20
+Georgia,2008,Unintentional Firearm,22
+Georgia,2009,Unintentional Firearm,17
+Georgia,2010,Unintentional Firearm,15
+Georgia,2011,Unintentional Firearm,NA
+Georgia,2012,Unintentional Firearm,13
+Georgia,2013,Unintentional Firearm,NA
+Georgia,2014,Unintentional Firearm,22
+Georgia,2015,Unintentional Firearm,34
+Georgia,2016,Unintentional Firearm,38
+Georgia,2017,Unintentional Firearm,28
+Georgia,2018,Unintentional Firearm,28
+Kentucky,2005,Unintentional Firearm,15
+Kentucky,2006,Unintentional Firearm,19
+Kentucky,2007,Unintentional Firearm,30
+Kentucky,2008,Unintentional Firearm,NA
+Kentucky,2009,Unintentional Firearm,13
+Kentucky,2010,Unintentional Firearm,12
+Kentucky,2011,Unintentional Firearm,13
+Kentucky,2012,Unintentional Firearm,12
+Kentucky,2013,Unintentional Firearm,24
+Kentucky,2014,Unintentional Firearm,10
+Kentucky,2015,Unintentional Firearm,NA
+Kentucky,2016,Unintentional Firearm,19
+Kentucky,2017,Unintentional Firearm,13
+Kentucky,2018,Unintentional Firearm,15
+Maryland,2005,Unintentional Firearm,NA
+Maryland,2006,Unintentional Firearm,NA
+Maryland,2007,Unintentional Firearm,NA
+Maryland,2008,Unintentional Firearm,NA
+Maryland,2009,Unintentional Firearm,NA
+Maryland,2010,Unintentional Firearm,NA
+Maryland,2011,Unintentional Firearm,NA
+Maryland,2012,Unintentional Firearm,NA
+Maryland,2013,Unintentional Firearm,NA
+Maryland,2014,Unintentional Firearm,NA
+Maryland,2015,Unintentional Firearm,NA
+Maryland,2016,Unintentional Firearm,NA
+Maryland,2017,Unintentional Firearm,0
+Maryland,2018,Unintentional Firearm,NA
+Massachusetts,2005,Unintentional Firearm,NA
+Massachusetts,2006,Unintentional Firearm,NA
+Massachusetts,2007,Unintentional Firearm,NA
+Massachusetts,2008,Unintentional Firearm,NA
+Massachusetts,2009,Unintentional Firearm,0
+Massachusetts,2010,Unintentional Firearm,0
+Massachusetts,2011,Unintentional Firearm,NA
+Massachusetts,2012,Unintentional Firearm,0
+Massachusetts,2013,Unintentional Firearm,NA
+Massachusetts,2014,Unintentional Firearm,NA
+Massachusetts,2015,Unintentional Firearm,NA
+Massachusetts,2016,Unintentional Firearm,NA
+Massachusetts,2017,Unintentional Firearm,NA
+Massachusetts,2018,Unintentional Firearm,NA
+New Jersey,2005,Unintentional Firearm,NA
+New Jersey,2006,Unintentional Firearm,NA
+New Jersey,2007,Unintentional Firearm,0
+New Jersey,2008,Unintentional Firearm,0
+New Jersey,2009,Unintentional Firearm,NA
+New Jersey,2010,Unintentional Firearm,NA
+New Jersey,2011,Unintentional Firearm,NA
+New Jersey,2012,Unintentional Firearm,0
+New Jersey,2013,Unintentional Firearm,NA
+New Jersey,2014,Unintentional Firearm,0
+New Jersey,2015,Unintentional Firearm,NA
+New Jersey,2016,Unintentional Firearm,NA
+New Jersey,2017,Unintentional Firearm,0
+New Jersey,2018,Unintentional Firearm,NA
+North Carolina,2005,Unintentional Firearm,23
+North Carolina,2006,Unintentional Firearm,14
+North Carolina,2007,Unintentional Firearm,NA
+North Carolina,2008,Unintentional Firearm,14
+North Carolina,2009,Unintentional Firearm,10
+North Carolina,2010,Unintentional Firearm,17
+North Carolina,2011,Unintentional Firearm,19
+North Carolina,2012,Unintentional Firearm,18
+North Carolina,2013,Unintentional Firearm,14
+North Carolina,2014,Unintentional Firearm,16
+North Carolina,2015,Unintentional Firearm,14
+North Carolina,2016,Unintentional Firearm,11
+North Carolina,2017,Unintentional Firearm,11
+North Carolina,2018,Unintentional Firearm,24
+South Carolina,2005,Unintentional Firearm,NA
+South Carolina,2006,Unintentional Firearm,NA
+South Carolina,2007,Unintentional Firearm,12
+South Carolina,2008,Unintentional Firearm,NA
+South Carolina,2009,Unintentional Firearm,NA
+South Carolina,2010,Unintentional Firearm,NA
+South Carolina,2011,Unintentional Firearm,15
+South Carolina,2012,Unintentional Firearm,19
+South Carolina,2013,Unintentional Firearm,NA
+South Carolina,2014,Unintentional Firearm,NA
+South Carolina,2015,Unintentional Firearm,11
+South Carolina,2016,Unintentional Firearm,25
+South Carolina,2017,Unintentional Firearm,13
+South Carolina,2018,Unintentional Firearm,15
+Virginia,2005,Unintentional Firearm,NA
+Virginia,2006,Unintentional Firearm,14
+Virginia,2007,Unintentional Firearm,NA
+Virginia,2008,Unintentional Firearm,21
+Virginia,2009,Unintentional Firearm,15
+Virginia,2010,Unintentional Firearm,NA
+Virginia,2011,Unintentional Firearm,NA
+Virginia,2012,Unintentional Firearm,NA
+Virginia,2013,Unintentional Firearm,NA
+Virginia,2014,Unintentional Firearm,11
+Virginia,2015,Unintentional Firearm,16
+Virginia,2016,Unintentional Firearm,14
+Virginia,2017,Unintentional Firearm,10
+Virginia,2018,Unintentional Firearm,15
+Wisconsin,2005,Unintentional Firearm,NA
+Wisconsin,2006,Unintentional Firearm,NA
+Wisconsin,2007,Unintentional Firearm,NA
+Wisconsin,2008,Unintentional Firearm,10
+Wisconsin,2009,Unintentional Firearm,NA
+Wisconsin,2010,Unintentional Firearm,NA
+Wisconsin,2011,Unintentional Firearm,NA
+Wisconsin,2012,Unintentional Firearm,NA
+Wisconsin,2013,Unintentional Firearm,NA
+Wisconsin,2014,Unintentional Firearm,NA
+Wisconsin,2015,Unintentional Firearm,11
+Wisconsin,2016,Unintentional Firearm,NA
+Wisconsin,2017,Unintentional Firearm,NA
+Wisconsin,2018,Unintentional Firearm,NA

@@ -1,0 +1,255 @@
+---
+title: inclass-week12
+author: Ziyang Ye
+format:
+    html:
+        code-fold: False
+        embed-resources: true
+        self-contained: true
+        theme:
+            light: [cosmo, theme.scss]
+            dark: [cosmo, theme-dark.scss]
+        toc: true
+---
+
+### Activity 1
+
+pmf: 
+  $$
+  P(Y_i = y) =
+  \begin{cases}
+    p + (1 - p)\,e^{-\lambda}, 
+      & y = 0,\\[8pt]
+    (1 - p)\,\displaystyle\sum_{k=1}^{9} e^{-\lambda}\frac{\lambda^k}{k!},
+      & y \in \{1,\dots,9\}\quad(\text{suppressed}),\\[8pt]
+    (1 - p)\,e^{-\lambda}\frac{\lambda^y}{y!},
+      & y \ge 10.
+  \end{cases}
+  $$
+---
+
+
+### activity 2
+
+#### 1) Define latent indicators
+
+indicators: Z: $P(Z=1)=p$ S: $P(S=1)=(1-p)\sum_{k=1}^{9}\frac{e^{-\lambda}\,\lambda^{k}}{k!}$
+
+#### 2) Complete‐data log‐likelihood
+
+complete_log_likelihood: \| $\ell_c(p,\lambda)=\sum_{i=1}^{n}\Bigl[
+    z_i\ln p \;+\;(1-z_i)\ln(1-p)
+    \;+\;(1-z_i)\,s_i\,
+      \ln\Bigl((1-p)\sum_{k=1}^{9}\tfrac{e^{-\lambda}\,\lambda^{k}}{k!}\Bigr)
+    \;+\;(1-z_i)(1-s_i)\,
+      \bigl(-\lambda \;+\;y_i\ln\lambda \;-\;\ln(y_i!)\bigr)
+  \Bigr]$
+
+### activity 3
+
+#### 1) Surrogate function Q(θ \| θ\^(t))
+
+Q_function: $$
+  Q(p,\lambda \mid p^{(t)},\lambda^{(t)})
+  = \sum_{i=1}^n \Bigl[
+    w_i\,\ln p
+    \;+\;(1-w_i)\,\ln(1-p)
+    \;+\;(1-w_i)\,s_i\,
+      \ln\Bigl((1-p)\sum_{k=1}^9 e^{-\lambda}\frac{\lambda^k}{k!}\Bigr)
+    \;+\;(1-w_i)(1-s_i)\bigl(-\lambda + y_i\ln\lambda\bigr)
+  \Bigr]
+  \;+\;\text{const.}
+  $$
+
+#### 2) Latent‐zero responsibilities
+
+latent_weights: \| $$
+  w_i \;=\;
+  P(Z_i=1 \mid y_i;\,p^{(t)},\lambda^{(t)})
+  =
+  \begin{cases}
+    \displaystyle
+    \frac{p^{(t)}}{p^{(t)} + (1-p^{(t)})\,e^{-\lambda^{(t)}}},
+      & y_i = 0,\\[10pt]
+    0, & y_i > 0.
+  \end{cases}
+  $$ --- \### activity: 4
+
+#### Newton–Raphson for maximizing Q(θ \| θ\^(t))
+
+newton_raphson:
+
+#### 1) Gradient vector g = (∂Q/∂p, ∂Q/∂λ)
+
+gradient: \| $$
+    g_p 
+    = \frac{\partial Q}{\partial p}
+    = \sum_{i=1}^n \Bigl[
+      \frac{w_i}{p}
+      \;-\;\frac{(1-w_i)\,(1+s_i)}{1 - p}
+    \Bigr],
+    $$ $$
+    g_\lambda
+    = \frac{\partial Q}{\partial \lambda}
+    = \sum_{i=1}^n \Bigl[
+      (1-w_i)\,s_i\,\frac{S'(\lambda)}{S(\lambda)}
+      \;+\;(1-w_i)(1-s_i)\Bigl(-1 + \frac{y_i}{\lambda}\Bigr)
+    \Bigr],
+    $$ where $$
+    S(\lambda)=\sum_{k=1}^9 e^{-\lambda}\frac{\lambda^k}{k!}, 
+    \quad
+    S'(\lambda)=\sum_{k=1}^9\Bigl(-1 + \tfrac{k}{\lambda}\Bigr)
+                 e^{-\lambda}\frac{\lambda^k}{k!}.
+    $$
+
+#### 2) Hessian matrix H (off‐diagonal = 0)
+
+hessian: \| $$
+    H_{pp}
+    = \frac{\partial^2 Q}{\partial p^2}
+    = -\sum_{i=1}^n \Bigl[
+       \frac{w_i}{p^2} + \frac{(1-w_i)(1+s_i)}{(1-p)^2}
+     \Bigr],
+    $$ $$
+    H_{\lambda\lambda}
+    = \frac{\partial^2 Q}{\partial \lambda^2}
+    = \sum_{i=1}^n \Bigl[
+       (1-w_i)\,s_i\,\Bigl(\frac{S''(\lambda)}{S(\lambda)} - \bigl(\tfrac{S'(\lambda)}{S(\lambda)}\bigr)^2\Bigr)
+       - (1-w_i)(1-s_i)\,\frac{y_i}{\lambda^2}
+    \Bigr],
+    $$ $$
+    H_{p\lambda} = H_{\lambda p} = 0.
+    $$
+
+#### 3) Newton–Raphson update
+
+update: \| $$
+    \begin{pmatrix} p \\ \lambda \end{pmatrix}^{(m+1)}
+    =
+    \begin{pmatrix} p \\ \lambda \end{pmatrix}^{(m)}
+    \;-\;
+    H^{-1}(\theta^{(m)})\,
+    \begin{pmatrix} g_p \\ g_\lambda \end{pmatrix}.
+    $$
+
+```{r}
+# Newton–Raphson for maximizing Q-function in the EM‐M‐step
+
+S_vals <- function(lambda) {
+  k <- 1:9
+  pk <- dpois(k, lambda)
+  S  <- sum(pk)
+  S1 <- sum((-1 + k/lambda) * pk)
+  S2 <- sum((( -1 + k/lambda )^2 - k/lambda^2) * pk)
+  return(list(S=S, S1=S1, S2=S2))
+}
+
+# Single Newton step returning updated (p, lambda)
+newton_step <- function(p, lambda, w, s, y) {
+  # compute S, S', S''
+  Sv <- S_vals(lambda)
+  S   <- Sv$S
+  S1  <- Sv$S1
+  S2  <- Sv$S2
+
+  # gradient components
+  gp <- sum( w/p - (1 - w)*(1 + s)/(1 - p) )
+  gl <- sum( (1 - w)*s * (S1/S) +
+             (1 - w)*(1 - s) * (-1 + y/lambda) )
+
+  # Hessian diagonal
+  Hpp <- -sum( w/p^2 + (1 - w)*(1 + s)/(1 - p)^2 )
+  Hll <- sum( (1 - w)*s * (S2/S - (S1/S)^2) -
+              (1 - w)*(1 - s) * (y/lambda^2) )
+
+  # update each parameter separately (off‐diagonal zero)
+  p_new      <- p      - gp / Hpp
+  lambda_new <- lambda - gl / Hll
+
+  return(c(p = p_new, lambda = lambda_new))
+}
+
+# Full Newton–Raphson until convergence
+newton_maximize_Q <- function(p_init, lambda_init, w, s, y,
+                              tol=1e-8, max_iter=50) {
+  p_curr      <- p_init
+  lambda_curr <- lambda_init
+
+  for (it in seq_len(max_iter)) {
+    prev <- c(p_curr, lambda_curr)
+    upd  <- newton_step(p_curr, lambda_curr, w, s, y)
+    p_curr      <- upd["p"]
+    lambda_curr <- upd["lambda"]
+
+    # check convergence
+    if (max(abs(p_curr - prev[1]),
+            abs(lambda_curr - prev[2])) < tol) {
+      message("Converged in ", it, " steps.")
+      break
+    }
+  }
+
+  return(c(p = p_curr, lambda = lambda_curr))
+}
+
+
+
+
+```
+
+### Activity 5
+
+```{r}
+
+em_zip <- function(y, tol=1e-6, max_iter=1000) {
+  n <- length(y)
+  # identify masks
+  supp   <- is.na(y)
+  zeros  <- (!supp) & (y == 0)
+  obs    <- (!supp) & (y >= 10)
+  n_supp <- sum(supp)
+  n_zero <- sum(zeros)
+  n_obs  <- sum(obs)
+  # initialize
+  y_clean <- y[!supp]
+  p  <- n_zero / (n_zero + n_obs)
+  λ  <- mean(y_clean, na.rm=TRUE)
+  diff <- Inf; iter <- 0
+
+  while (diff > tol && iter < max_iter) {
+    iter <- iter + 1
+    p_old <- p; λ_old <- λ
+
+    # E‐step
+    γ0 <- p / (p + (1 - p) * exp(-λ))
+    k  <- 1:9
+    pmf_k <- dpois(k, λ)
+    pmf_tr <- pmf_k / sum(pmf_k)
+    EY_supp <- sum(k * pmf_tr)
+
+    # M‐step
+    p <- (n_zero * γ0) / n
+    num <- sum(y[obs]) + n_supp * EY_supp
+    den <- n_obs + (1 - γ0) * n_zero + n_supp
+    λ <- num / den
+
+    diff <- max(abs(p - p_old), abs(λ - λ_old))
+  }
+
+  list(p = p, lambda = λ, iterations = iter)
+}
+
+            
+df <- read.csv("deaths_by_unintentional_firearm_use.csv", 
+               stringsAsFactors = FALSE)
+df <- subset(df, intent == "Unintentional Firearm")
+y  <- df$number_of_deaths
+
+
+res <- em_zip(y)
+
+cat("Converged in", res$iterations, "iterations\n")
+cat(sprintf("Estimated inflation probability p = %.4f\n", res$p))
+cat(sprintf("Estimated Poisson rate λ       = %.4f\n", res$lambda))
+
+```
